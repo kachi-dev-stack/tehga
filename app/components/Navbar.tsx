@@ -12,15 +12,13 @@ const NAV = [
   { to: "/about", label: "About" },
   { to: "/services", label: "Services" },
   { to: "/industries", label: "Industries" },
-  { to: "/contact", label: "Contact" },
 ] as const;
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
-  const pathname = usePathname(); // Next.js hook to get current path
+  const pathname = usePathname();
 
-  // Handle scroll effect
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
     onScroll();
@@ -28,7 +26,6 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Close mobile menu when route changes
   useEffect(() => {
     setOpen(false);
   }, [pathname]);
@@ -42,12 +39,21 @@ export function Navbar() {
       }`}
     >
       <div className="container-tight flex h-16 md:h-20 items-center justify-between">
-        <Link
-          href="/"
-          className="text-foreground hover:opacity-80 transition-opacity"
-        >
-          <Logo />
-        </Link>
+        <div className="flex items-center gap-2">
+          <button
+            aria-label="Toggle menu"
+            className="md:hidden inline-flex h-10 w-10 items-center justify-center text-foreground"
+            onClick={() => setOpen((v) => !v)}
+          >
+            {open ? <X size={20} /> : <Menu size={20} />}
+          </button>
+          <Link
+            href="/"
+            className="text-foreground hover:opacity-80 transition-opacity"
+          >
+            <Logo />
+          </Link>
+        </div>
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center gap-8">
@@ -56,7 +62,7 @@ export function Navbar() {
             return (
               <Link
                 key={item.to}
-                href={item.to} // Changed from 'to' to 'href'
+                href={item.to}
                 className={`relative text-sm tracking-wide transition-colors ${
                   active
                     ? "text-foreground"
@@ -76,20 +82,19 @@ export function Navbar() {
 
         {/* Desktop CTA Button */}
         <Link
-          href="/contact" // Changed from 'to' to 'href'
+          href="/contact"
           className="hidden md:inline-flex items-center gap-2 rounded-sm bg-primary px-4 py-2 text-xs font-medium uppercase tracking-[0.15em] text-primary-foreground hover:bg-forest-deep transition-colors"
         >
-          Get in touch
+          Contact us
         </Link>
 
-        {/* Mobile Menu Button */}
-        <button
-          aria-label="Toggle menu"
-          className="md:hidden inline-flex h-10 w-10 items-center justify-center text-foreground"
-          onClick={() => setOpen((v) => !v)}
+        {/* Mobile CTA Button */}
+        <Link
+          href="/contact"
+          className="md:hidden inline-flex items-center gap-2 rounded-sm bg-primary px-4 py-2 text-xs font-medium uppercase tracking-[0.15em] text-primary-foreground hover:bg-forest-deep transition-colors"
         >
-          {open ? <X size={20} /> : <Menu size={20} />}
-        </button>
+          Contact us
+        </Link>
       </div>
 
       {/* Mobile Navigation Menu */}
@@ -101,19 +106,13 @@ export function Navbar() {
               return (
                 <Link
                   key={item.to}
-                  href={item.to} // Changed from 'to' to 'href'
+                  href={item.to}
                   className={`py-3 text-base ${active ? "text-foreground" : "text-muted-foreground"}`}
                 >
                   {item.label}
                 </Link>
               );
             })}
-            <Link
-              href="/contact" // Changed from 'to' to 'href'
-              className="mt-3 inline-flex items-center justify-center rounded-sm bg-primary px-4 py-3 text-xs font-medium uppercase tracking-[0.15em] text-primary-foreground"
-            >
-              Get in touch
-            </Link>
           </nav>
         </div>
       )}
