@@ -151,7 +151,7 @@ export default function HomePage() {
                 href="/contact"
                 className="inline-flex items-center gap-2 rounded-sm border border-foreground/20 px-6 py-3.5 text-xs font-medium uppercase tracking-[0.18em] text-foreground hover:bg-foreground hover:text-background transition-colors"
               >
-                Start a conversation
+                Schedule a consultation
               </Link>
             </div>
           </div>
