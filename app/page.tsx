@@ -1,16 +1,20 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { CtaBanner } from "@/app/components/CtaBanner";
 import { GeometricMark } from "@/app/components/GeometricMark";
+import { useReveal } from "@/app/hooks/useReveal";
 import {
   ArrowUpRight,
   Compass,
   Globe2,
   ShieldCheck,
   Sparkles,
+  Building2,
+  Cpu,
+  TrendingUp,
+  Network,
 } from "lucide-react";
 
 const WHY = [
@@ -38,38 +42,38 @@ const WHY = [
 
 const SERVICES = [
   {
-    n: "01",
     id: "strategy-advisory",
+    icon: Compass,
     title: "Strategy & Advisory",
     body: "We work with boards and leadership teams to set direction, sharpen corporate strategy, and build the operational structures to execute it — in complex, high-stakes environments.",
   },
   {
-    n: "02",
     id: "infrastructure-development",
+    icon: Building2,
     title: "Infrastructure & Development",
     body: "From project origination to financial close and delivery — we structure and advance major infrastructure programmes across energy, transport, and urban development.",
   },
   {
-    n: "03",
     id: "government-engagement",
+    icon: Globe2,
     title: "Government & Global Engagement",
     body: "We advise governments and institutions on policy design, regulatory frameworks, and international engagement strategies that attract investment and enable growth.",
   },
   {
-    n: "04",
     id: "innovation-technology",
+    icon: Cpu,
     title: "Innovation, Technology & Execution",
     body: "We help organisations move from technology strategy to real-world deployment — modernising operations, enabling digital transformation, and building the systems that scale.",
   },
   {
-    n: "05",
     id: "investment-advisory",
+    icon: TrendingUp,
     title: "Investment & Commercial Advisory",
     body: "We support investors and corporates through the full transaction lifecycle — from opportunity identification and due diligence to deal structuring, capital raising, and close.",
   },
   {
-    n: "06",
     id: "digital-infrastructure",
+    icon: Network,
     title: "Digital Infrastructure & Innovation",
     body: "We design and develop the digital backbone that organisations and economies need to compete — connectivity, smart systems, and the ecosystems that drive sustained innovation.",
   },
@@ -92,31 +96,10 @@ const INDUSTRIES = [
 ];
 
 export default function HomePage() {
-  const router = useRouter();
+  useReveal();
+
   const [activeIndex, setActiveIndex] = useState(0);
   const scrollRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) entry.target.classList.add("is-visible");
-        });
-      },
-      { threshold: 0.1 },
-    );
-    document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
-    return () => observer.disconnect();
-  }, []);
-
-  useEffect(() => {
-    const el = scrollRef.current;
-    if (!el) return;
-    const handleScroll = () =>
-      setActiveIndex(Math.round(el.scrollLeft / el.offsetWidth));
-    el.addEventListener("scroll", handleScroll, { passive: true });
-    return () => el.removeEventListener("scroll", handleScroll);
-  }, []);
 
   return (
     <>
@@ -207,7 +190,7 @@ export default function HomePage() {
           <div>
             <p className="eyebrow">What we do</p>
             <h2 className="mt-3 text-4xl md:text-5xl max-w-2xl">
-              Six practice areas. <br /> One standard of work.
+              Advisory across every <br /> dimension of the mandate.
             </h2>
           </div>
           <Link
@@ -228,20 +211,25 @@ export default function HomePage() {
             ref={scrollRef}
             className="flex overflow-x-auto snap-x snap-mandatory scrollbar-none -mx-4"
             style={{ scrollBehavior: "smooth" }}
+            onScroll={(e) => {
+              const el = e.currentTarget;
+              setActiveIndex(Math.round(el.scrollLeft / el.offsetWidth));
+            }}
           >
-            {SERVICES.map((s, idx) => (
+            {SERVICES.map((s) => (
               <div
                 key={s.title}
                 className="shrink-0 snap-start w-screen px-4 box-border"
               >
                 <Link
-                  key={s.title}
                   href={`/services?service=${s.id}`}
-                  className="reveal bg-background p-8 lg:p-10 group hover:bg-secondary transition-colors min-h-[240px] flex flex-col cursor-pointer"
+                  className="bg-background p-8 group hover:bg-secondary transition-colors min-h-[240px] flex flex-col cursor-pointer"
                 >
-                  <p className="text-xs tabular-nums text-muted-foreground">
-                    {(idx + 1).toString().padStart(2, "0")}
-                  </p>
+                  <s.icon
+                    size={24}
+                    strokeWidth={1.5}
+                    className="text-primary group-hover:opacity-70 transition-opacity"
+                  />
                   <h3 className="mt-6 text-2xl">{s.title}</h3>
                   <p className="mt-3 text-sm text-muted-foreground leading-relaxed flex-1">
                     {s.body}
@@ -270,7 +258,11 @@ export default function HomePage() {
               {SERVICES.map((_, i) => (
                 <span
                   key={i}
-                  className={`block rounded-full transition-all ${activeIndex === i ? "bg-foreground w-5 h-2" : "bg-border w-2 h-2"}`}
+                  className={`block rounded-full transition-all ${
+                    activeIndex === i
+                      ? "bg-foreground w-5 h-2"
+                      : "bg-border w-2 h-2"
+                  }`}
                 />
               ))}
             </div>
@@ -279,15 +271,17 @@ export default function HomePage() {
 
         {/* Tablet & Desktop: grid */}
         <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-px bg-border rounded-sm overflow-hidden mt-14">
-          {SERVICES.map((s, idx) => (
+          {SERVICES.map((s) => (
             <Link
               key={s.title}
               href={`/services?service=${s.id}`}
               className="reveal bg-background p-8 lg:p-10 group hover:bg-secondary transition-colors min-h-[240px] flex flex-col cursor-pointer"
             >
-              <p className="text-xs tabular-nums text-muted-foreground">
-                {(idx + 1).toString().padStart(2, "0")}
-              </p>
+              <s.icon
+                size={24}
+                strokeWidth={1.5}
+                className="text-primary group-hover:opacity-70 transition-opacity"
+              />
               <h3 className="mt-6 text-2xl">{s.title}</h3>
               <p className="mt-3 text-sm text-muted-foreground leading-relaxed flex-1">
                 {s.body}

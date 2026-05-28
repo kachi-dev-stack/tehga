@@ -1,16 +1,25 @@
 "use client";
 
-import { useEffect, useRef, Suspense } from "react";
+import { Suspense, useEffect } from "react";
 import { PageHero } from "@/app/components/PageHero";
 import { CtaBanner } from "@/app/components/CtaBanner";
 import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
+import { useReveal } from "@/app/hooks/useReveal";
+import {
+  Compass,
+  Building2,
+  Globe2,
+  Cpu,
+  TrendingUp,
+  Network,
+} from "lucide-react";
 
 const SERVICES = [
   {
-    n: "01",
     id: "strategy-advisory",
+    icon: Compass,
     title: "Strategy & Advisory",
     body: "We work with boards and leadership teams to set direction, sharpen corporate strategy, and build the operational structures to execute it — in complex, high-stakes environments.",
     detail:
@@ -18,8 +27,8 @@ const SERVICES = [
     cta: { label: "Enquire now", href: "/contact" },
   },
   {
-    n: "02",
     id: "infrastructure-development",
+    icon: Building2,
     title: "Infrastructure & Development",
     body: "From project origination to financial close and delivery — we structure and advance major infrastructure programmes across energy, transport, and urban development.",
     detail:
@@ -27,8 +36,8 @@ const SERVICES = [
     cta: { label: "Enquire now", href: "/contact" },
   },
   {
-    n: "03",
     id: "government-engagement",
+    icon: Globe2,
     title: "Government & Global Engagement",
     body: "We advise governments and institutions on policy design, regulatory frameworks, and international engagement strategies that attract investment and enable growth.",
     detail:
@@ -36,8 +45,8 @@ const SERVICES = [
     cta: { label: "Enquire now", href: "/contact" },
   },
   {
-    n: "04",
     id: "innovation-technology",
+    icon: Cpu,
     title: "Innovation, Technology & Execution",
     body: "We help organisations move from technology strategy to real-world deployment — modernising operations, enabling digital transformation, and building the systems that scale.",
     detail:
@@ -45,8 +54,8 @@ const SERVICES = [
     cta: { label: "Enquire now", href: "/contact" },
   },
   {
-    n: "05",
     id: "investment-advisory",
+    icon: TrendingUp,
     title: "Investment & Commercial Advisory",
     body: "We support investors and corporates through the full transaction lifecycle — from opportunity identification and due diligence to deal structuring, capital raising, and close.",
     detail:
@@ -54,8 +63,8 @@ const SERVICES = [
     cta: { label: "Enquire now", href: "/contact" },
   },
   {
-    n: "06",
     id: "digital-infrastructure",
+    icon: Network,
     title: "Digital Infrastructure & Innovation",
     body: "We design and develop the digital backbone that organisations and economies need to compete — connectivity, smart systems, and the ecosystems that drive sustained innovation.",
     detail:
@@ -87,23 +96,12 @@ function ServiceScroller() {
 
   return null;
 }
+
 export default function ServicesPage() {
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) entry.target.classList.add("is-visible");
-        });
-      },
-      { threshold: 0.1 },
-    );
-    document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
-    return () => observer.disconnect();
-  }, []);
+  useReveal();
 
   return (
     <>
-      {/* Scroll to service on mount if query param present */}
       <Suspense fallback={null}>
         <ServiceScroller />
       </Suspense>
@@ -129,20 +127,16 @@ export default function ServicesPage() {
         <div className="grid md:grid-cols-2 gap-px bg-border rounded-sm overflow-hidden">
           {SERVICES.map((s) => (
             <article
-              key={s.n}
+              key={s.id}
               data-service={s.id}
               className="reveal bg-background p-10 md:p-12 group hover:bg-secondary transition-colors min-h-[280px] flex flex-col"
             >
-              {/* Number + arrow */}
-              <div className="flex items-center justify-between">
-                <p className="text-xs tabular-nums text-muted-foreground tracking-widest">
-                  {s.n}
-                </p>
-                <ArrowUpRight
-                  size={18}
-                  className="text-foreground/30 group-hover:text-primary group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-all"
-                />
-              </div>
+              {/* Icon */}
+              <s.icon
+                size={24}
+                strokeWidth={1.5}
+                className="text-primary group-hover:opacity-70 transition-opacity"
+              />
 
               {/* Title */}
               <h3 className="mt-10 text-3xl md:text-4xl">{s.title}</h3>

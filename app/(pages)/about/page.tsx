@@ -1,11 +1,11 @@
-// app/about/page.tsx
 "use client";
 
-import { useEffect } from "react";
+import Link from "next/link";
 import { PageHero } from "@/app/components/PageHero";
 import { CtaBanner } from "@/app/components/CtaBanner";
 import { Telescope, Scale, HandshakeIcon, Gem } from "lucide-react";
 import { WhoWeAreMark } from "@/app/components/WhoWeAreMark";
+import { useReveal } from "@/app/hooks/useReveal";
 
 const PRINCIPLES = [
   {
@@ -29,24 +29,9 @@ const PRINCIPLES = [
     body: "The most consequential decisions demand absolute confidentiality. We operate as trusted advisors — and we treat every mandate with the discretion that role requires.",
   },
 ];
+
 export default function AboutPage() {
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("is-visible");
-          }
-        });
-      },
-      { threshold: 0.1 },
-    );
-
-    const revealElements = document.querySelectorAll(".reveal");
-    revealElements.forEach((el) => observer.observe(el));
-
-    return () => observer.disconnect();
-  }, []);
+  useReveal();
 
   return (
     <>
@@ -61,7 +46,7 @@ export default function AboutPage() {
         <div className="grid md:grid-cols-12 gap-12 items-start">
           <div className="md:col-span-5 reveal">
             <div className="aspect-[4/5] w-full">
-              <WhoWeAreMark />.
+              <WhoWeAreMark />
             </div>
           </div>
           <div className="md:col-span-6 md:col-start-7 reveal">
