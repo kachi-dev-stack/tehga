@@ -3,31 +3,58 @@ import { Mail, MapPin } from "lucide-react";
 import { Logo } from "./Logo";
 
 const SERVICES = [
-  { label: "Strategy & Advisory", to: "/services#strategy" },
-  { label: "Infrastructure & Development", to: "/services#infrastructure" },
-  { label: "Government & Global Engagement", to: "/services#government" },
-  { label: "Innovation, Technology & Execution", to: "/services#innovation" },
-  { label: "Investment & Commercial Advisory", to: "/services#investment" },
-  { label: "Digital Infrastructure & Innovation", to: "/services#digital" },
+  { label: "Strategy & Advisory", to: "/services?service=strategy-advisory" },
+  {
+    label: "Infrastructure & Development",
+    to: "/services?service=infrastructure-development",
+  },
+  {
+    label: "Government & Global Engagement",
+    to: "/services?service=government-engagement",
+  },
+  {
+    label: "Innovation, Technology & Execution",
+    to: "/services?service=innovation-technology",
+  },
+  {
+    label: "Investment & Commercial Advisory",
+    to: "/services?service=investment-advisory",
+  },
+  {
+    label: "Digital Infrastructure & Innovation",
+    to: "/services?service=digital-infrastructure",
+  },
 ];
 
 const INDUSTRIES = [
-  { label: "Aviation & Aerospace", to: "/industries#aviation" },
-  { label: "Government & Public Sector", to: "/industries#government" },
-  { label: "Healthcare & Insurance", to: "/industries#healthcare" },
-  { label: "Energy & Natural Resources", to: "/industries#energy" },
-  { label: "Transport & Logistics", to: "/industries#transport" },
-  { label: "Financial Services", to: "/industries#financial" },
-  { label: "Technology & Digital Innovation", to: "/industries#technology" },
+  { label: "Aviation & Aerospace", to: "/industries?industry=aviation" },
+  {
+    label: "Government & Public Sector",
+    to: "/industries?industry=government",
+  },
+  { label: "Healthcare & Insurance", to: "/industries?industry=healthcare" },
+  { label: "Energy & Natural Resources", to: "/industries?industry=energy" },
+  { label: "Transport & Logistics", to: "/industries?industry=transport" },
+  { label: "Financial Services", to: "/industries?industry=financial" },
+  {
+    label: "Technology & Digital Innovation",
+    to: "/industries?industry=technology",
+  },
   {
     label: "Infrastructure & Urban Development",
-    to: "/industries#infrastructure",
+    to: "/industries?industry=infrastructure",
   },
-  { label: "Trade & Commerce", to: "/industries#trade" },
-  { label: "Education & Skills Development", to: "/industries#education" },
-  { label: "Agriculture & Food Systems", to: "/industries#agriculture" },
-  { label: "Security & Risk Advisory", to: "/industries#security" },
-  { label: "Fashion & Textile", to: "/industries#fashion" },
+  { label: "Trade & Commerce", to: "/industries?industry=trade" },
+  {
+    label: "Education & Skills Development",
+    to: "/industries?industry=education",
+  },
+  {
+    label: "Agriculture & Food Systems",
+    to: "/industries?industry=agriculture",
+  },
+  { label: "Security & Risk Advisory", to: "/industries?industry=security" },
+  { label: "Fashion & Textile", to: "/industries?industry=fashion" },
 ];
 
 const NAV = [

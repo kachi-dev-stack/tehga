@@ -1,8 +1,10 @@
 "use client";
 
+import { Suspense, useEffect } from "react";
 import { PageHero } from "@/app/components/PageHero";
 import { CtaBanner } from "@/app/components/CtaBanner";
 import { useReveal } from "@/app/hooks/useReveal";
+import { useSearchParams } from "next/navigation";
 import {
   Plane,
   Landmark,
@@ -23,6 +25,7 @@ import Link from "next/link";
 
 const INDUSTRIES = [
   {
+    id: "aviation",
     icon: Plane,
     title: "Aviation & Aerospace",
     description:
@@ -30,6 +33,7 @@ const INDUSTRIES = [
     cta: { label: "Enquire now", href: "/contact" },
   },
   {
+    id: "government",
     icon: Landmark,
     title: "Government & Public Sector",
     description:
@@ -37,6 +41,7 @@ const INDUSTRIES = [
     cta: { label: "Enquire now", href: "/contact" },
   },
   {
+    id: "healthcare",
     icon: HeartPulse,
     title: "Healthcare & Insurance",
     description:
@@ -44,6 +49,7 @@ const INDUSTRIES = [
     cta: { label: "Enquire now", href: "/contact" },
   },
   {
+    id: "energy",
     icon: Zap,
     title: "Energy & Natural Resources",
     description:
@@ -51,6 +57,7 @@ const INDUSTRIES = [
     cta: { label: "Enquire now", href: "/contact" },
   },
   {
+    id: "transport",
     icon: Truck,
     title: "Transport & Logistics",
     description:
@@ -58,6 +65,7 @@ const INDUSTRIES = [
     cta: { label: "Enquire now", href: "/contact" },
   },
   {
+    id: "financial",
     icon: BadgeDollarSign,
     title: "Financial Services",
     description:
@@ -65,6 +73,7 @@ const INDUSTRIES = [
     cta: { label: "Enquire now", href: "/contact" },
   },
   {
+    id: "technology",
     icon: Cpu,
     title: "Technology & Digital Innovation",
     description:
@@ -72,6 +81,7 @@ const INDUSTRIES = [
     cta: { label: "Enquire now", href: "/contact" },
   },
   {
+    id: "infrastructure",
     icon: Building2,
     title: "Infrastructure & Urban Development",
     description:
@@ -79,6 +89,7 @@ const INDUSTRIES = [
     cta: { label: "Enquire now", href: "/contact" },
   },
   {
+    id: "trade",
     icon: ShoppingBag,
     title: "Trade & Commerce",
     description:
@@ -86,6 +97,7 @@ const INDUSTRIES = [
     cta: { label: "Enquire now", href: "/contact" },
   },
   {
+    id: "education",
     icon: GraduationCap,
     title: "Education & Skills Development",
     description:
@@ -93,6 +105,7 @@ const INDUSTRIES = [
     cta: { label: "Enquire now", href: "/contact" },
   },
   {
+    id: "agriculture",
     icon: Sprout,
     title: "Agriculture & Food Systems",
     description:
@@ -100,6 +113,7 @@ const INDUSTRIES = [
     cta: { label: "Enquire now", href: "/contact" },
   },
   {
+    id: "security",
     icon: ShieldCheck,
     title: "Security & Risk Advisory",
     description:
@@ -107,6 +121,7 @@ const INDUSTRIES = [
     cta: { label: "Enquire now", href: "/contact" },
   },
   {
+    id: "fashion",
     icon: Scissors,
     title: "Fashion & Textile",
     description:
@@ -115,11 +130,39 @@ const INDUSTRIES = [
   },
 ];
 
+function SectionScroller() {
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    const industry = searchParams.get("industry");
+    if (!industry) return;
+
+    setTimeout(() => {
+      const el = document.querySelector(`[data-industry="${industry}"]`);
+      if (!el) return;
+
+      const header = document.querySelector("header");
+      const headerHeight = header ? header.offsetHeight : 80;
+      const gap = 24;
+
+      const top =
+        el.getBoundingClientRect().top + window.scrollY - headerHeight - gap;
+      window.scrollTo({ top, behavior: "smooth" });
+    }, 500);
+  }, [searchParams]);
+
+  return null;
+}
+
 export default function IndustriesPage() {
   useReveal();
 
   return (
     <>
+      <Suspense fallback={null}>
+        <SectionScroller />
+      </Suspense>
+
       <PageHero
         eyebrow="Industries"
         title="The sectors that shape Africa's growth — and global markets."
@@ -139,9 +182,10 @@ export default function IndustriesPage() {
       {/* INDUSTRIES GRID */}
       <section className="container-tight pb-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-border rounded-sm overflow-hidden">
-          {INDUSTRIES.map(({ icon: Icon, title, description, cta }, i) => (
+          {INDUSTRIES.map(({ id, icon: Icon, title, description, cta }, i) => (
             <div
-              key={title}
+              key={id}
+              data-industry={id}
               className="reveal bg-background p-6 md:p-8 min-h-[180px] flex flex-col justify-between group hover:bg-forest hover:text-ivory transition-colors"
               style={{ transitionDelay: `${(i % 4) * 50}ms` }}
             >

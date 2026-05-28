@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { PageHero } from "@/app/components/PageHero";
 import { CtaBanner } from "@/app/components/CtaBanner";
 import { Telescope, Scale, HandshakeIcon, Gem } from "lucide-react";
