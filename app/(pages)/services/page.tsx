@@ -123,20 +123,18 @@ export default function ServicesPage() {
       <PageHero
         eyebrow="Services"
         title="Advisory built around the decisions that define mandates."
+        subtitle="Built to address the most consequential challenges facing governments, investors, and organisations — across Africa and international markets."
       />
 
-      <section className="bg-cream py-12">
-        <div className="mx-auto max-w-4xl px-6 lg:px-10">
-          <p className="font-serif text-2xl lg:text-3xl text-tehga-green/80 leading-snug">
-            TEHGA delivers{" "}
-            <span className="text-tehga-green font-medium">
-              structured, evidence-led advisory
-            </span>{" "}
-            across the decisions that define organisations and markets — from
-            the earliest stages of strategy through to execution and commercial
-            close.
-          </p>
-        </div>
+      <section className="container-tight py-12 md:py-16">
+        <p className="reveal max-w-3xl text-xl md:text-2xl font-display leading-snug text-balance">
+          TEHGA delivers{" "}
+          <em className="text-primary not-italic">
+            structured, evidence-led advisory
+          </em>{" "}
+          across the decisions that define organisations and markets — from the
+          earliest stages of strategy through to execution and commercial close.
+        </p>
       </section>
 
       <section className="bg-cream pb-24 lg:pb-32">
