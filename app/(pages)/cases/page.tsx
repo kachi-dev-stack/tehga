@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useReveal } from "@/app/hooks/useReveal";
 import { PageHero } from "@/app/components/PageHero";
 import { CtaBanner } from "@/app/components/CtaBanner";
 import { ArrowUpRight, MapPin, BarChart3 } from "lucide-react";
@@ -72,24 +72,8 @@ const CASES = [
   },
 ];
 
-export default function WorkPage() {
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("is-visible");
-          }
-        });
-      },
-      { threshold: 0.1 },
-    );
-
-    const revealElements = document.querySelectorAll(".reveal");
-    revealElements.forEach((el) => observer.observe(el));
-
-    return () => observer.disconnect();
-  }, []);
+export default function CasePage() {
+  useReveal();
 
   return (
     <>
