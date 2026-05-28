@@ -35,34 +35,41 @@ const WHY = [
     body: "We measure our value by what gets built, closed, or changed — not by the quality of the deck. Every mandate is scoped around a result, not a process.",
   },
 ];
+
 const SERVICES = [
   {
     n: "01",
+    id: "strategy-advisory",
     title: "Strategy & Advisory",
     body: "We work with boards and leadership teams to set direction, sharpen corporate strategy, and build the operational structures to execute it — in complex, high-stakes environments.",
   },
   {
     n: "02",
+    id: "infrastructure-development",
     title: "Infrastructure & Development",
     body: "From project origination to financial close and delivery — we structure and advance major infrastructure programmes across energy, transport, and urban development.",
   },
   {
     n: "03",
+    id: "government-engagement",
     title: "Government & Global Engagement",
     body: "We advise governments and institutions on policy design, regulatory frameworks, and international engagement strategies that attract investment and enable growth.",
   },
   {
     n: "04",
+    id: "innovation-technology",
     title: "Innovation, Technology & Execution",
     body: "We help organisations move from technology strategy to real-world deployment — modernising operations, enabling digital transformation, and building the systems that scale.",
   },
   {
     n: "05",
+    id: "investment-advisory",
     title: "Investment & Commercial Advisory",
     body: "We support investors and corporates through the full transaction lifecycle — from opportunity identification and due diligence to deal structuring, capital raising, and close.",
   },
   {
     n: "06",
+    id: "digital-infrastructure",
     title: "Digital Infrastructure & Innovation",
     body: "We design and develop the digital backbone that organisations and economies need to compete — connectivity, smart systems, and the ecosystems that drive sustained innovation.",
   },
@@ -86,27 +93,21 @@ const INDUSTRIES = [
 
 export default function HomePage() {
   const router = useRouter();
+  const [activeIndex, setActiveIndex] = useState(0);
+  const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("is-visible");
-          }
+          if (entry.isIntersecting) entry.target.classList.add("is-visible");
         });
       },
       { threshold: 0.1 },
     );
-
-    const revealElements = document.querySelectorAll(".reveal");
-    revealElements.forEach((el) => observer.observe(el));
-
+    document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
     return () => observer.disconnect();
   }, []);
-
-  const [activeIndex, setActiveIndex] = useState(0);
-  const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const el = scrollRef.current;
@@ -166,7 +167,6 @@ export default function HomePage() {
             </div>
           </div>
         </div>
-
         <div
           aria-hidden
           className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-border to-transparent"
@@ -222,7 +222,7 @@ export default function HomePage() {
           </Link>
         </div>
 
-        {/* ── Mobile: horizontal carousel ── */}
+        {/* Mobile: horizontal carousel */}
         <div className="md:hidden mt-14">
           <div
             ref={scrollRef}
@@ -234,9 +234,10 @@ export default function HomePage() {
                 key={s.title}
                 className="shrink-0 snap-start w-screen px-4 box-border"
               >
-                <article
-                  onClick={() => router.push("/services")}
-                  className="bg-background border border-border rounded-sm p-8 flex flex-col min-h-[240px] cursor-pointer"
+                <Link
+                  key={s.title}
+                  href={`/services?service=${s.id}`}
+                  className="reveal bg-background p-8 lg:p-10 group hover:bg-secondary transition-colors min-h-[240px] flex flex-col cursor-pointer"
                 >
                   <p className="text-xs tabular-nums text-muted-foreground">
                     {(idx + 1).toString().padStart(2, "0")}
@@ -245,8 +246,10 @@ export default function HomePage() {
                   <p className="mt-3 text-sm text-muted-foreground leading-relaxed flex-1">
                     {s.body}
                   </p>
-                  <ArrowUpRight size={18} className="mt-6 text-foreground/40" />
-                </article>
+                  <span className="mt-6 inline-flex items-center gap-1.5 text-xs font-medium uppercase tracking-[0.16em] text-primary group-hover:opacity-70 transition-opacity">
+                    Learn more <ArrowUpRight size={11} />
+                  </span>
+                </Link>
               </div>
             ))}
           </div>
@@ -267,23 +270,19 @@ export default function HomePage() {
               {SERVICES.map((_, i) => (
                 <span
                   key={i}
-                  className={`block rounded-full transition-all ${
-                    activeIndex === i
-                      ? "bg-foreground w-5 h-2"
-                      : "bg-border w-2 h-2"
-                  }`}
+                  className={`block rounded-full transition-all ${activeIndex === i ? "bg-foreground w-5 h-2" : "bg-border w-2 h-2"}`}
                 />
               ))}
             </div>
           </div>
         </div>
 
-        {/* ── Tablet & Desktop: original grid ── */}
+        {/* Tablet & Desktop: grid */}
         <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-px bg-border rounded-sm overflow-hidden mt-14">
           {SERVICES.map((s, idx) => (
-            <article
+            <Link
               key={s.title}
-              onClick={() => router.push("/services")}
+              href={`/services?service=${s.id}`}
               className="reveal bg-background p-8 lg:p-10 group hover:bg-secondary transition-colors min-h-[240px] flex flex-col cursor-pointer"
             >
               <p className="text-xs tabular-nums text-muted-foreground">
@@ -293,11 +292,10 @@ export default function HomePage() {
               <p className="mt-3 text-sm text-muted-foreground leading-relaxed flex-1">
                 {s.body}
               </p>
-              <ArrowUpRight
-                size={18}
-                className="mt-6 text-foreground/40 group-hover:text-primary transition-colors"
-              />
-            </article>
+              <span className="mt-6 inline-flex items-center gap-1.5 text-xs font-medium uppercase tracking-[0.16em] text-primary group-hover:opacity-70 transition-opacity">
+                Learn more <ArrowUpRight size={11} />
+              </span>
+            </Link>
           ))}
         </div>
       </section>
@@ -317,7 +315,6 @@ export default function HomePage() {
               for mandates where the stakes are too high for generalist advice.
             </p>
           </div>
-
           <div className="mt-16 grid sm:grid-cols-2 lg:grid-cols-4 gap-px bg-border rounded-sm overflow-hidden">
             {WHY.map(({ icon: Icon, title, body }, i) => (
               <div
