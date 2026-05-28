@@ -201,7 +201,7 @@ export default function HomePage() {
       {/* SERVICES SNAPSHOT */}
       <section className="bg-cream py-24 lg:py-32">
         <div className="mx-auto max-w-7xl px-6 lg:px-10">
-          <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8 mb-16">
+          <div className="reveal flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8 mb-16">
             <div className="max-w-2xl">
               <p className="text-xs uppercase tracking-[0.2em] text-tehga-green/60 mb-4">
                 What we do
@@ -235,20 +235,21 @@ export default function HomePage() {
                 return (
                   <article
                     key={s.id}
-                    className="snap-center shrink-0 w-[85%] bg-background border border-tehga-green/10 overflow-hidden group"
+                    className="snap-center shrink-0 w-[85%] bg-background border border-tehga-green/10 overflow-hidden group cursor-pointer"
+                    onClick={() =>
+                      (window.location.href = `/services?service=${s.id}`)
+                    }
                   >
-                    {/* Image */}
                     <div className="relative aspect-[16/10] overflow-hidden bg-tehga-green/5">
                       <Image
                         src={s.image}
                         alt={s.imageAlt}
                         fill
-                        sizes="(max-width: 1024px) 85vw, 33vw"
+                        sizes="85vw"
                         className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-tehga-green/30 to-transparent" />
                     </div>
-
                     <div className="p-6">
                       <Icon className="w-6 h-6 text-tehga-green mb-4" />
                       <h3 className="font-serif text-xl text-tehga-green mb-3">
@@ -259,6 +260,7 @@ export default function HomePage() {
                       </p>
                       <Link
                         href={`/services?service=${s.id}`}
+                        onClick={(e) => e.stopPropagation()}
                         className="inline-flex items-center gap-1 text-sm font-medium text-tehga-green hover:gap-2 transition-all"
                       >
                         Learn more <ArrowUpRight className="w-4 h-4" />
@@ -291,16 +293,19 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* Tablet & Desktop: grid */}
+          {/* Desktop: grid */}
           <div className="hidden lg:grid grid-cols-3 gap-6">
-            {SERVICES.map((s) => {
+            {SERVICES.map((s, i) => {
               const Icon = s.icon;
               return (
                 <article
                   key={s.id}
-                  className=" bg-background border border-tehga-green/10 overflow-hidden group hover:bg-card hover:border-tehga-green/30 transition-colors"
+                  className="reveal bg-background border border-tehga-green/10 overflow-hidden group hover:bg-card hover:border-tehga-green/30 transition-colors cursor-pointer"
+                  style={{ transitionDelay: `${i * 60}ms` }}
+                  onClick={() =>
+                    (window.location.href = `/services?service=${s.id}`)
+                  }
                 >
-                  {/* Image */}
                   <div className="relative aspect-[16/10] overflow-hidden bg-tehga-green/5">
                     <Image
                       src={s.image}
@@ -312,7 +317,6 @@ export default function HomePage() {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-tehga-green/40 via-transparent to-transparent" />
                   </div>
-
                   <div className="p-8">
                     <Icon className="w-7 h-7 text-tehga-green mb-5" />
                     <h3 className="font-serif text-2xl text-tehga-green mb-4 leading-tight">
@@ -323,6 +327,7 @@ export default function HomePage() {
                     </p>
                     <Link
                       href={`/services?service=${s.id}`}
+                      onClick={(e) => e.stopPropagation()}
                       className="inline-flex items-center gap-1 text-sm font-medium text-tehga-green hover:gap-2 transition-all"
                     >
                       Learn more <ArrowUpRight className="w-4 h-4" />

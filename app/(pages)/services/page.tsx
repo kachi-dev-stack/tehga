@@ -138,7 +138,7 @@ export default function ServicesPage() {
       </section>
 
       <section className="bg-cream pb-24 lg:pb-32">
-        <div className="container-tight  px-6 lg:px-10 space-y-12 lg:space-y-20">
+        <div className="container-tight px-6 lg:px-10 space-y-12 lg:space-y-20">
           {SERVICES.map((s, i) => {
             const Icon = s.icon;
             const reverse = i % 2 === 1;
@@ -146,9 +146,10 @@ export default function ServicesPage() {
               <article
                 key={s.id}
                 data-service={s.id}
-                className={`grid lg:grid-cols-2 gap-8 lg:gap-14 items-center scroll-mt-32 ${
+                className={`reveal grid lg:grid-cols-2 gap-8 lg:gap-14 items-center scroll-mt-32 ${
                   reverse ? "lg:[&>*:first-child]:order-2" : ""
                 }`}
+                style={{ transitionDelay: `${i * 60}ms` }}
               >
                 {/* Image */}
                 <div className="relative aspect-[4/3] overflow-hidden bg-tehga-green/5 group">
@@ -164,7 +165,10 @@ export default function ServicesPage() {
                 </div>
 
                 {/* Content */}
-                <div>
+                <div
+                  className="reveal"
+                  style={{ transitionDelay: `${i * 60 + 80}ms` }}
+                >
                   <Icon className="w-8 h-8 text-tehga-green mb-6" />
                   <h2 className="font-serif text-3xl lg:text-4xl text-tehga-green mb-5 leading-tight">
                     {s.title}
@@ -172,7 +176,6 @@ export default function ServicesPage() {
                   <p className="text-base lg:text-lg text-tehga-green/75 leading-relaxed mb-6">
                     {s.body}
                   </p>
-
                   <div className="flex flex-wrap gap-2 mb-8">
                     {s.detail.split(" · ").map((tag) => (
                       <span
@@ -183,7 +186,6 @@ export default function ServicesPage() {
                       </span>
                     ))}
                   </div>
-
                   <Link
                     href={s.cta.href}
                     className="inline-flex items-center gap-2 bg-tehga-green text-cream px-6 py-3 text-sm font-medium hover:gap-3 transition-all"
