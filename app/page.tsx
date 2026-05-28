@@ -16,6 +16,7 @@ import {
   TrendingUp,
   Network,
 } from "lucide-react";
+import Image from "next/image";
 
 const WHY = [
   {
@@ -46,36 +47,49 @@ const SERVICES = [
     icon: Compass,
     title: "Strategy & Advisory",
     body: "We work with boards and leadership teams to set direction, sharpen corporate strategy, and build the operational structures to execute it — in complex, high-stakes environments.",
+    image: "/services/strategy-advisory.jpg",
+    imageAlt: "Boardroom set for strategic advisory work",
   },
   {
     id: "infrastructure-development",
     icon: Building2,
     title: "Infrastructure & Development",
     body: "From project origination to financial close and delivery — we structure and advance major infrastructure programmes across energy, transport, and urban development.",
+    image: "/services/infrastructure-development.jpg",
+    imageAlt: "Major infrastructure construction site at golden hour",
   },
   {
     id: "government-engagement",
     icon: Globe2,
     title: "Government & Global Engagement",
     body: "We advise governments and institutions on policy design, regulatory frameworks, and international engagement strategies that attract investment and enable growth.",
+    image: "/services/government-engagement.jpg",
+    imageAlt: "Government building colonnade with flags",
   },
   {
     id: "innovation-technology",
     icon: Cpu,
     title: "Innovation, Technology & Execution",
     body: "We help organisations move from technology strategy to real-world deployment — modernising operations, enabling digital transformation, and building the systems that scale.",
+    image: "/services/innovation-technology.jpg",
+    imageAlt: "Modern technology operations centre",
   },
   {
     id: "investment-advisory",
     icon: TrendingUp,
     title: "Investment & Commercial Advisory",
     body: "We support investors and corporates through the full transaction lifecycle — from opportunity identification and due diligence to deal structuring, capital raising, and close.",
+    image: "/services/investment-advisory.jpg",
+    imageAlt: "Capital markets office at twilight",
   },
   {
     id: "digital-infrastructure",
     icon: Network,
     title: "Digital Infrastructure & Innovation",
     body: "We design and develop the digital backbone that organisations and economies need to compete — connectivity, smart systems, and the ecosystems that drive sustained innovation.",
+    image: "/services/digital-infrastructure.jpg",
+    imageAlt:
+      "Telecommunications tower with network connectivity over African landscape",
   },
 ];
 
@@ -185,112 +199,139 @@ export default function HomePage() {
       </section>
 
       {/* SERVICES SNAPSHOT */}
-      <section className="container-tight py-24 md:py-36">
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 reveal">
-          <div>
-            <p className="eyebrow">What we do</p>
-            <h2 className="mt-3 text-4xl md:text-5xl max-w-2xl">
-              Advisory across every <br /> dimension of the mandate.
-            </h2>
-          </div>
-          <Link
-            href="/services"
-            className="hidden md:inline-flex group items-center gap-2 text-sm text-foreground hover:text-primary transition-colors"
-          >
-            All services{" "}
-            <ArrowUpRight
-              size={14}
-              className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-            />
-          </Link>
-        </div>
-
-        {/* Mobile: horizontal carousel */}
-        <div className="md:hidden mt-14">
-          <div
-            ref={scrollRef}
-            className="flex overflow-x-auto snap-x snap-mandatory scrollbar-none -mx-4"
-            style={{ scrollBehavior: "smooth" }}
-            onScroll={(e) => {
-              const el = e.currentTarget;
-              setActiveIndex(Math.round(el.scrollLeft / el.offsetWidth));
-            }}
-          >
-            {SERVICES.map((s) => (
-              <div
-                key={s.title}
-                className="shrink-0 snap-start w-screen px-4 box-border"
-              >
-                <Link
-                  href={`/services?service=${s.id}`}
-                  className="bg-background p-8 group hover:bg-secondary transition-colors min-h-[240px] flex flex-col cursor-pointer"
-                >
-                  <s.icon
-                    size={24}
-                    strokeWidth={1.5}
-                    className="text-primary group-hover:opacity-70 transition-opacity"
-                  />
-                  <h3 className="mt-6 text-2xl">{s.title}</h3>
-                  <p className="mt-3 text-sm text-muted-foreground leading-relaxed flex-1">
-                    {s.body}
-                  </p>
-                  <span className="mt-6 inline-flex items-center gap-1.5 text-xs font-medium uppercase tracking-[0.16em] text-primary group-hover:opacity-70 transition-opacity">
-                    Learn more <ArrowUpRight size={11} />
-                  </span>
-                </Link>
-              </div>
-            ))}
-          </div>
-
-          {/* Dots + view all */}
-          <div className="flex items-center justify-between mt-7 px-1">
+      <section className="bg-cream py-24 lg:py-32">
+        <div className="mx-auto max-w-7xl px-6 lg:px-10">
+          <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8 mb-16">
+            <div className="max-w-2xl">
+              <p className="text-xs uppercase tracking-[0.2em] text-tehga-green/60 mb-4">
+                What we do
+              </p>
+              <h2 className="font-serif text-4xl lg:text-5xl text-tehga-green leading-tight">
+                Advisory across every
+                <br />
+                dimension of the mandate.
+              </h2>
+            </div>
             <Link
               href="/services"
-              className="inline-flex items-center gap-1.5 text-sm text-foreground hover:text-primary group"
+              className="hidden lg:inline-flex items-center gap-2 text-sm font-medium text-tehga-green hover:gap-3 transition-all"
             >
-              All services{" "}
-              <ArrowUpRight
-                size={14}
-                className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-              />
+              All services <ArrowUpRight className="w-4 h-4" />
             </Link>
-            <div className="flex items-center gap-1.5">
-              {SERVICES.map((_, i) => (
-                <span
-                  key={i}
-                  className={`block rounded-full transition-all ${
-                    activeIndex === i
-                      ? "bg-foreground w-5 h-2"
-                      : "bg-border w-2 h-2"
-                  }`}
-                />
-              ))}
+          </div>
+
+          {/* Mobile: horizontal carousel */}
+          <div className="lg:hidden">
+            <div
+              ref={scrollRef}
+              onScroll={(e) => {
+                const el = e.currentTarget;
+                setActiveIndex(Math.round(el.scrollLeft / el.offsetWidth));
+              }}
+              className="flex overflow-x-auto snap-x snap-mandatory gap-4 -mx-6 px-6 pb-4 scrollbar-hide"
+            >
+              {SERVICES.map((s) => {
+                const Icon = s.icon;
+                return (
+                  <article
+                    key={s.id}
+                    className="snap-center shrink-0 w-[85%] bg-background border border-tehga-green/10 overflow-hidden group"
+                  >
+                    {/* Image */}
+                    <div className="relative aspect-[16/10] overflow-hidden bg-tehga-green/5">
+                      <Image
+                        src={s.image}
+                        alt={s.imageAlt}
+                        fill
+                        sizes="(max-width: 1024px) 85vw, 33vw"
+                        className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-tehga-green/30 to-transparent" />
+                    </div>
+
+                    <div className="p-6">
+                      <Icon className="w-6 h-6 text-tehga-green mb-4" />
+                      <h3 className="font-serif text-xl text-tehga-green mb-3">
+                        {s.title}
+                      </h3>
+                      <p className="text-sm text-tehga-green/70 leading-relaxed mb-6">
+                        {s.body}
+                      </p>
+                      <Link
+                        href={`/services?service=${s.id}`}
+                        className="inline-flex items-center gap-1 text-sm font-medium text-tehga-green hover:gap-2 transition-all"
+                      >
+                        Learn more <ArrowUpRight className="w-4 h-4" />
+                      </Link>
+                    </div>
+                  </article>
+                );
+              })}
+            </div>
+
+            <div className="flex items-center justify-between mt-6">
+              <Link
+                href="/services"
+                className="inline-flex items-center gap-2 text-sm font-medium text-tehga-green"
+              >
+                All services <ArrowUpRight className="w-4 h-4" />
+              </Link>
+              <div className="flex gap-1.5">
+                {SERVICES.map((_, i) => (
+                  <span
+                    key={i}
+                    className={`h-1.5 rounded-full transition-all ${
+                      i === activeIndex
+                        ? "w-6 bg-tehga-green"
+                        : "w-1.5 bg-tehga-green/30"
+                    }`}
+                  />
+                ))}
+              </div>
             </div>
           </div>
-        </div>
 
-        {/* Tablet & Desktop: grid */}
-        <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-px bg-border rounded-sm overflow-hidden mt-14">
-          {SERVICES.map((s) => (
-            <Link
-              key={s.title}
-              href={`/services?service=${s.id}`}
-              className="reveal bg-background p-8 lg:p-10 group hover:bg-secondary transition-colors min-h-[240px] flex flex-col cursor-pointer"
-            >
-              <s.icon
-                size={24}
-                strokeWidth={1.5}
-                className="text-primary group-hover:opacity-70 transition-opacity"
-              />
-              <h3 className="mt-6 text-2xl">{s.title}</h3>
-              <p className="mt-3 text-sm text-muted-foreground leading-relaxed flex-1">
-                {s.body}
-              </p>
-              <span className="mt-6 inline-flex items-center gap-1.5 text-xs font-medium uppercase tracking-[0.16em] text-primary group-hover:opacity-70 transition-opacity">
-                Learn more <ArrowUpRight size={11} />
-              </span>
-            </Link>
-          ))}
+          {/* Tablet & Desktop: grid */}
+          <div className="hidden lg:grid grid-cols-3 gap-6">
+            {SERVICES.map((s) => {
+              const Icon = s.icon;
+              return (
+                <article
+                  key={s.id}
+                  className=" bg-background border border-tehga-green/10 overflow-hidden group hover:bg-card hover:border-tehga-green/30 transition-colors"
+                >
+                  {/* Image */}
+                  <div className="relative aspect-[16/10] overflow-hidden bg-tehga-green/5">
+                    <Image
+                      src={s.image}
+                      alt={s.imageAlt}
+                      fill
+                      sizes="33vw"
+                      loading="lazy"
+                      className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-tehga-green/40 via-transparent to-transparent" />
+                  </div>
+
+                  <div className="p-8">
+                    <Icon className="w-7 h-7 text-tehga-green mb-5" />
+                    <h3 className="font-serif text-2xl text-tehga-green mb-4 leading-tight">
+                      {s.title}
+                    </h3>
+                    <p className="text-sm text-tehga-green/70 leading-relaxed mb-6">
+                      {s.body}
+                    </p>
+                    <Link
+                      href={`/services?service=${s.id}`}
+                      className="inline-flex items-center gap-1 text-sm font-medium text-tehga-green hover:gap-2 transition-all"
+                    >
+                      Learn more <ArrowUpRight className="w-4 h-4" />
+                    </Link>
+                  </div>
+                </article>
+              );
+            })}
+          </div>
         </div>
       </section>
 
