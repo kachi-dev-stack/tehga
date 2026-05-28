@@ -122,25 +122,13 @@ export function Footer() {
 
       <div className="border-t border-ivory/10">
         <div className="container-tight py-6 flex flex-col md:flex-row items-center justify-between gap-3 text-xs text-ivory/50">
-          <p>
-            © {new Date().getFullYear()} TEHGA Consulting. All rights reserved.
-          </p>
+          <p>TEHGA Consulting. All rights reserved.</p>
           <div className="flex items-center gap-4">
-            <a
-              href="/privacy"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-ivory transition-colors"
-            >
+            <a href="/privacy" className="hover:text-ivory transition-colors">
               Privacy Policy
             </a>
             <span className="text-ivory/20">•</span>
-            <a
-              href="/terms"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-ivory transition-colors"
-            >
+            <a href="/terms" className="hover:text-ivory transition-colors">
               Terms of Service
             </a>
           </div>
