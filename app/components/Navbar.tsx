@@ -8,10 +8,11 @@ import { Menu, X } from "lucide-react";
 import { Logo } from "./Logo";
 
 const NAV = [
-  { to: "/", label: "Home" },
+  // { to: "/", label: "Home" },
   { to: "/about", label: "About" },
   { to: "/services", label: "Services" },
   { to: "/industries", label: "Industries" },
+  { to: "/cases", label: "Case Studies" },
 ] as const;
 
 export function Navbar() {
