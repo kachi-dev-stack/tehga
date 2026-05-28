@@ -138,7 +138,7 @@ export default function ServicesPage() {
       </section>
 
       <section className="bg-cream pb-24 lg:pb-32">
-        <div className="mx-auto max-w-7xl px-6 lg:px-10 space-y-12 lg:space-y-20">
+        <div className="container-tight  px-6 lg:px-10 space-y-12 lg:space-y-20">
           {SERVICES.map((s, i) => {
             const Icon = s.icon;
             const reverse = i % 2 === 1;
