@@ -55,7 +55,7 @@ const SERVICES = [
     icon: Building2,
     title: "Infrastructure & Development",
     body: "From project origination to financial close and delivery — we structure and advance major infrastructure programmes across energy, transport, and urban development.",
-    image: "/services/infrastructure-development.jpg",
+    image: "/services/development-infrastructure.jpg",
     imageAlt: "Major infrastructure construction site at golden hour",
   },
   {
@@ -79,7 +79,7 @@ const SERVICES = [
     icon: TrendingUp,
     title: "Investment & Commercial Advisory",
     body: "We support investors and corporates through the full transaction lifecycle — from opportunity identification and due diligence to deal structuring, capital raising, and close.",
-    image: "/services/investment-advisory.jpg",
+    image: "/services/commercial-advisory.png",
     imageAlt: "Capital markets office at twilight",
   },
   {
@@ -87,7 +87,7 @@ const SERVICES = [
     icon: Network,
     title: "Digital Infrastructure & Innovation",
     body: "We design and develop the digital backbone that organisations and economies need to compete — connectivity, smart systems, and the ecosystems that drive sustained innovation.",
-    image: "/services/digital-infrastructure.jpg",
+    image: "/services/infrastructure-digital.jpg",
     imageAlt:
       "Telecommunications tower with network connectivity over African landscape",
   },

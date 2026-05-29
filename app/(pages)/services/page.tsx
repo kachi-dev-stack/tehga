@@ -36,7 +36,7 @@ const SERVICES = [
     body: "From project origination to financial close and delivery — we structure and advance major infrastructure programmes across energy, transport, and urban development.",
     detail:
       "Project development · PPP structuring · Feasibility & due diligence · Financing strategy · Stakeholder management",
-    image: "/services/infrastructure-development.jpg",
+    image: "/services/development-infrastructure.jpg",
     imageAlt: "Major infrastructure construction site at golden hour",
     cta: { label: "Enquire now", href: "/contact" },
   },
@@ -69,7 +69,7 @@ const SERVICES = [
     body: "We support investors and corporates through the full transaction lifecycle — from opportunity identification and due diligence to deal structuring, capital raising, and close.",
     detail:
       "M&A advisory · Capital raising · Due diligence · Deal structuring · Transaction management",
-    image: "/services/investment-advisory.jpg",
+    image: "/services/commercial-advisory.png",
     imageAlt: "Capital markets office at twilight",
     cta: { label: "Enquire now", href: "/contact" },
   },
@@ -80,7 +80,7 @@ const SERVICES = [
     body: "We design and develop the digital backbone that organisations and economies need to compete — connectivity, smart systems, and the ecosystems that drive sustained innovation.",
     detail:
       "Connectivity strategy · Smart systems · Digital ecosystem design · Infrastructure deployment · Innovation enablement",
-    image: "/services/digital-infrastructure.jpg",
+    image: "/services/infrastructure-digital.jpg",
     imageAlt:
       "Telecommunications tower with network connectivity over African landscape",
     cta: { label: "Enquire now", href: "/contact" },
