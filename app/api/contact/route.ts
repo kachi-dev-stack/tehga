@@ -1,8 +1,6 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 export async function POST(req: Request) {
   try {
     const { name, company, email, country, service, engagement, message } =
@@ -15,8 +13,11 @@ export async function POST(req: Request) {
       );
     }
 
+    // Instantiate inside the function so it only runs at request time, not build time
+    const resend = new Resend(process.env.RESEND_API_KEY);
+
     await resend.emails.send({
-      from: "TEHGA Contact Form <contact@tehgaconsulting.com>",
+      from: "TEHGA Contact Form <onboarding@resend.dev>",
       to: "info@tehgaconsulting.com",
       replyTo: email,
       subject: `New brief from ${name}${company ? ` — ${company}` : ""}`,
