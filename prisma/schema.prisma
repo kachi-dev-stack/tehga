@@ -1,0 +1,232 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../app/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+
+model Service {
+  id        Int      @id @default(autoincrement())
+  slug      String   @unique
+  title     String
+  body      String
+  detail    String
+  image     String
+  imageAlt  String
+  order     Int      @default(0)
+  updatedAt DateTime @updatedAt
+}
+
+model Industry {
+  id          Int      @id @default(autoincrement())
+  slug        String   @unique
+  title       String
+  description String
+  order       Int      @default(0)
+  updatedAt   DateTime @updatedAt
+}
+
+model CaseStudy {
+  id        Int      @id @default(autoincrement())
+  client    String
+  sector    String
+  region    String
+  body      String
+  outcome   String
+  order     Int      @default(0)
+  updatedAt DateTime @updatedAt
+}
+
+model WhyPillar {
+  id    Int    @id @default(autoincrement())
+  title String
+  body  String
+  order Int    @default(0)
+}
+
+model Principle {
+  id    Int    @id @default(autoincrement())
+  title String
+  body  String
+  order Int    @default(0)
+}
+
+model Stat {
+  id    Int    @id @default(autoincrement())
+  value String
+  label String
+  order Int    @default(0)
+}
+
+model HeroContent {
+  id            Int    @id @default(1)
+  eyebrow       String
+  headline      String
+  subtext       String
+  ctaPrimary    String
+  ctaSecondary  String
+  presenceLabel String
+}
+
+model FirmOverview {
+  id      Int    @id @default(1)
+  eyebrow String
+  heading String
+  body1   String
+  body2   String
+}
+
+model AboutCopy {
+  id                  Int    @id @default(1)
+  heroEyebrow         String
+  heroTitle           String
+  heroSubtitle        String
+  whoEyebrow          String @default("Who we are")
+  whoHeading          String
+  whoPara1            String
+  whoPara2            String
+  whoPara3            String
+  philosophyEyebrow   String @default("Our philosophy")
+  philosophyHeading   String @default("Four principles guide every engagement.")
+  reachEyebrow        String @default("Our reach")
+  reachHeading        String
+  reachBody           String
+  ctaEyebrow          String @default("Work with us")
+  ctaTitle            String @default("A conversation is the best way to begin.")
+  ctaBody             String @default("If you are navigating a complex decision — in strategy, infrastructure, investment, or government engagement — we would welcome the opportunity to understand your situation and explore how we can help.")
+  ctaLabel            String @default("Schedule a consultation")
+}
+
+model FooterContent {
+  id          Int    @id @default(1)
+  description String
+  email       String
+  offices     String
+  copyright   String
+  tagline     String
+}
+
+
+model HomeContent {
+  id                      Int    @id @default(1)
+  // Services snapshot section
+  servicesEyebrow         String @default("What we do")
+  servicesHeading         String @default("Advisory across every dimension of the mandate.")
+  // Why TEHGA section
+  whyEyebrow              String @default("Why TEHGA")
+  whyHeading              String @default("Built for decisions that carry weight.")
+  whySubtext              String @default("Retained by governments, institutions, and private sector leaders for mandates where the stakes are too high for generalist advice.")
+  // Industries teaser section
+  industriesEyebrow       String @default("Industries")
+  industriesHeading       String @default("Sectors we serve.")
+  industriesBody          String @default("From energy and infrastructure to financial services and government — we work across the sectors that shape African economies and global markets.")
+  industriesCta           String @default("View all industries")
+  // CTA Banner
+  ctaEyebrow              String @default("Engage TEHGA")
+  ctaTitle                String @default("Strategy without compromise. Outcomes without excuses.")
+  ctaBody                 String @default("If you are navigating a high-stakes decision, transaction, or transformation — we should talk. TEHGA works on a retained basis with clients who need more than a report.")
+  ctaPrimary              String @default("Start a conversation")
+  ctaSecondary            String @default("About the firm")
+}
+
+// New — services page copy
+model ServicesPageContent {
+  id              Int    @id @default(1)
+  heroEyebrow     String @default("Services")
+  heroTitle       String @default("Advisory built around the decisions that define mandates.")
+  heroSubtitle    String @default("Built to address the most consequential challenges facing governments, investors, and organisations — across Africa and international markets.")
+  introPart1      String @default("TEHGA delivers")
+  introEmphasis   String @default("structured, evidence-led advisory")
+  introPart2      String @default("across the decisions that define organisations and markets — from the earliest stages of strategy through to execution and commercial close.")
+  ctaEyebrow      String @default("")
+  ctaTitle        String @default("")
+  ctaBody         String @default("")
+  ctaLabel        String @default("")
+}
+
+// New — industries page copy
+model IndustriesPageContent {
+  id              Int    @id @default(1)
+  heroEyebrow     String @default("Industries")
+  heroTitle       String @default("The sectors that shape Africa's growth — and global markets.")
+  heroSubtitle    String @default("TEHGA advises across the industries that drive economies, attract capital, and determine how societies develop — from energy and infrastructure to financial services, healthcare, and beyond.")
+  introPart1      String @default("Our advisors combine")
+  introEmphasis   String @default("deep sector knowledge")
+  introPart2      String @default("with cross-industry perspective — working across the industries that define African economies and attract global capital.")
+  ctaEyebrow      String @default("Sector advisory")
+  ctaTitle        String @default("Your industry has its own rules. We know them.")
+  ctaBody         String @default("Whether you are navigating a market entry, a regulatory shift, or a complex transaction — we work with clients who need an advisor with genuine sector depth. Share your brief and let's talk.")
+  ctaLabel        String @default("Speak with an advisor")
+}
+
+
+model CasesPageContent {
+  id              Int    @id @default(1)
+  heroEyebrow     String @default("Case Studies")
+  heroTitle       String @default("Mandates delivered. Outcomes achieved.")
+  heroSubtitle    String @default("A selection of engagements that illustrate the scope, scale and impact of TEHGA's advisory across sectors and markets.")
+  introPart1      String @default("Engagements defined by")
+  introEmphasis   String @default("clear mandates, rigorous execution, and results that stand on their own.")
+  ctaEyebrow      String @default("Start a mandate")
+  ctaTitle        String @default("Facing a decision that demands the right advice?")
+  ctaBody         String @default("Every engagement begins with a focused conversation. Share your context and our team will respond within two business days.")
+  ctaLabel        String @default("Brief our team")
+}
+
+
+model PrivacyPage {
+  id       Int              @id @default(1)
+  eyebrow  String           @default("Legal")
+  title    String           @default("Privacy Policy")
+  subtitle String           @default("How we collect, use, and protect your personal information when you interact with TEHGA Consulting.")
+  sections PrivacySection[]
+}
+
+model PrivacySection {
+  id      Int         @id @default(autoincrement())
+  title   String
+  body    String
+  order   Int         @default(0)
+  pageId  Int         @default(1)
+  page    PrivacyPage @relation(fields: [pageId], references: [id])
+}
+
+model TermsPage {
+  id       Int            @id @default(1)
+  eyebrow  String         @default("Legal")
+  title    String         @default("Terms of Use")
+  subtitle String         @default("The rules and conditions governing your use of the TEHGA Consulting website and services.")
+  sections TermsSection[]
+}
+
+model TermsSection {
+  id      Int       @id @default(autoincrement())
+  title   String
+  body    String
+  order   Int       @default(0)
+  pageId  Int       @default(1)
+  page    TermsPage @relation(fields: [pageId], references: [id])
+}
+
+model ContactPageContent {
+  id             Int    @id @default(1)
+  heroEyebrow    String @default("Contact")
+  heroTitle      String @default("Tell us what you are working on.")
+  heroSubtitle   String @default("Whether you are exploring a mandate, responding to an opportunity, or navigating a complex situation — share a brief and we will respond promptly.")
+  detailsEyebrow String @default("Direct")
+  email          String @default("info@tehgaconsulting.com")
+  officesLabel   String @default("Offices")
+  officesText    String @default("Lagos · Nairobi\nLondon")
+  officesNote    String @default("Meetings and engagements by appointment only.")
+  expectEyebrow  String @default("What to expect")
+  expectStep1    String @default("Submit your brief using the form.")
+  expectStep2    String @default("A senior member of our team reviews your enquiry personally.")
+  expectStep3    String @default("We respond to discuss next steps.")
+  confirmTitle   String @default("We have received your brief.")
+  confirmBody    String @default("A member of our team will review your enquiry and come back to you within one business day. All submissions are treated with strict confidence.")
+  confirmReset   String @default("Submit another enquiry")
+  engagementTypes  String[]  @default(["Retained advisory", "Project-based engagement", "Exploratory conversation", "Not sure yet"])
+}
